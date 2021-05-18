@@ -32,6 +32,8 @@ http.createServer(function (request, response) {
         });
         return;
     }
+
+    // 新增记仇
     if (url === "/add") {
         // post 参数获取
         let result = "";
