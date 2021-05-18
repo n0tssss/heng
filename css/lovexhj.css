@@ -1,0 +1,130 @@
+/* 萌神手写体字体 */
+@font-face {
+    font-family: lovexhj;
+    src: url("../fonts/lovexhj.ttf");
+}
+
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    word-break: break-all;
+    outline: none;
+    font-family: lovexhj;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+/* 统一过渡 */
+#lovexhj {
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+/* 定位居中 */
+.lovexhjBook {
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+/* 主框架 */
+#lovexhj {
+    position: relative;
+    height: 100%;
+    background: var(--bg-color);
+}
+
+/* 顶部菜单栏 */
+.lovexhjHeader {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lovexhjHeader p {
+    font-size: 2.3rem;
+}
+
+/* 书本 */
+.lovexhjBook {
+    background: rgb(0, 99, 178);
+    border-radius: 50px 0 0 50px;
+    -webkit-border-radius: 50px 0 0 50px;
+    -moz-border-radius: 50px 0 0 50px;
+    -ms-border-radius: 50px 0 0 50px;
+    -o-border-radius: 50px 0 0 50px;
+    border: 15px solid black;
+    position: relative;
+}
+
+.lovexhjBook>div {
+    transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+    -webkit-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+    -moz-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+    -ms-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+    -o-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+}
+
+.lovexhjBookWhiteBg {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    width: 90%;
+    height: 10%;
+    background: rgb(243, 243, 243);
+    border-radius: 50px 0 0 50px;
+    -webkit-border-radius: 50px 0 0 50px;
+    -moz-border-radius: 50px 0 0 50px;
+    -ms-border-radius: 50px 0 0 50px;
+    -o-border-radius: 50px 0 0 50px;
+}
+
+.lovexhjBookFm,
+.lovexhjBookList {
+    position: absolute;
+    top: 0;
+    right: -2%;
+    width: 90%;
+    height: 87%;
+    background: rgb(55, 151, 222);
+    transform-origin: left;
+    transform-style: preserve-3d;
+}
+
+.lovexhjBookFm {
+    z-index: 1;
+}
+
+.lovexhjBookList {
+    width: 85%;
+    right: 3%;
+    background: white;
+}
+
+.lovexhjBookActive {
+    transform: rotateY(-145deg);
+    -webkit-transform: rotateY(-145deg);
+    -moz-transform: rotateY(-145deg);
+    -ms-transform: rotateY(-145deg);
+    -o-transform: rotateY(-145deg);
+}

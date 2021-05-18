@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记仇小本本</title>
+    <meta name="description" content="网站介绍">
+    <meta name="keywords" content="关键词">
+    <link rel="stylesheet" href="./css/lovexhj.css">
+</head>
+
+<body>
+    <div id="lovexhj">
+        <div v-if="jsonConfig">
+            <!-- 顶部菜单栏 -->
+            <div class="lovexhjHeader">
+                <p>{{jsonConfig.lovexhj.lovexhjHeader.title}}</p>
+            </div>
+            <!-- 书本 -->
+            <div class="lovexhjBook">
+                <!-- 白色底层 -->
+                <div class="lovexhjBookWhiteBg"></div>
+                <!-- 封面 -->
+                <div class="lovexhjBookFm" @click="pageOpen"></div>
+                <!-- 目录页 -->
+                <div class="lovexhjBookList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="./js/lovexhj.js"></script>
+</body>
+
+</html>
