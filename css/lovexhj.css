@@ -27,7 +27,8 @@ body {
 }
 
 /* 统一过渡 */
-#lovexhj {
+#lovexhj,
+.lovexhjBookMove {
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
@@ -35,8 +36,18 @@ body {
     -o-transition: all .3s ease-in-out;
 }
 
+/* 按钮过渡 */
+.lovexhjToButton,
+.wdnmdsubmit {
+    transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+}
+
 /* 定位居中 */
-.lovexhjBook {
+.wdnmdsubmit {
     left: 50%;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
@@ -45,8 +56,29 @@ body {
     -o-transform: translateX(-50%);
 }
 
+/* 滚动条 */
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+    /* 滚动条里面小方块 */
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #535353;
+}
+
+*::-webkit-scrollbar-track {
+    /* 滚动条里面轨道 */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #ededed;
+}
+
 /* 主框架 */
-#lovexhj {
+#lovexhj,
+#lovexhj>div {
     position: relative;
     height: 100%;
     background: var(--bg-color);
@@ -65,8 +97,37 @@ body {
     font-size: 2.3rem;
 }
 
+/* 主体框架 */
+.lovexhjBody {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 移动框架 */
+.lovexhjBookMove {
+    width: 200%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* 内容框架 */
+.lovexhjIndex {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* 书本 */
 .lovexhjBook {
+    position: absolute;
     background: rgb(0, 99, 178);
     border-radius: 50px 0 0 50px;
     -webkit-border-radius: 50px 0 0 50px;
@@ -74,22 +135,22 @@ body {
     -ms-border-radius: 50px 0 0 50px;
     -o-border-radius: 50px 0 0 50px;
     border: 15px solid black;
-    position: relative;
 }
 
 .lovexhjBook>div {
-    transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
-    -webkit-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
-    -moz-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
-    -ms-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
-    -o-transition: all .5s cubic-bezier(.78, -0.56, .24, 1.51);
+    transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
+    -webkit-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
+    -moz-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
+    -ms-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
+    -o-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
 }
 
+/* 白色底层 */
 .lovexhjBookWhiteBg {
     position: absolute;
     bottom: 3%;
     right: 3%;
-    width: 90%;
+    width: 91%;
     height: 10%;
     background: rgb(243, 243, 243);
     border-radius: 50px 0 0 50px;
@@ -99,8 +160,11 @@ body {
     -o-border-radius: 50px 0 0 50px;
 }
 
+/* 封面 */
 .lovexhjBookFm,
-.lovexhjBookList {
+.lovexhjBookList,
+.lovexhjBookListBg,
+.lovexhjBookContent {
     position: absolute;
     top: 0;
     right: -2%;
@@ -109,22 +173,206 @@ body {
     background: rgb(55, 151, 222);
     transform-origin: left;
     transform-style: preserve-3d;
+    border-left: 5px solid rgb(55, 151, 222);
+    cursor: pointer;
 }
 
 .lovexhjBookFm {
-    z-index: 1;
+    z-index: 3;
 }
 
-.lovexhjBookList {
+/* 目录页 */
+.lovexhjBookList,
+.lovexhjBookListBg,
+.lovexhjBookContent {
     width: 85%;
     right: 3%;
     background: white;
+    z-index: 2;
+    overflow-y: scroll;
 }
 
+.lovexhjBookListBg {
+    z-index: 1;
+}
+
+.lovexhjBookListBgActive {
+    z-index: 2;
+}
+
+/* 封面打开 */
 .lovexhjBookActive {
-    transform: rotateY(-145deg);
-    -webkit-transform: rotateY(-145deg);
-    -moz-transform: rotateY(-145deg);
-    -ms-transform: rotateY(-145deg);
-    -o-transform: rotateY(-145deg);
+    transform: rotateY(-160deg);
+    -webkit-transform: rotateY(-160deg);
+    -moz-transform: rotateY(-160deg);
+    -ms-transform: rotateY(-160deg);
+    -o-transform: rotateY(-160deg);
+    z-index: 1;
+}
+
+/* 标题 */
+.lovexhjBookList .lovexhjBookListTitle,
+.lovexhjBookListTitle {
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    font-weight: bold;
+}
+
+/* 目录item */
+.lovexhjBookListItem {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.lovexhjBookListItem p {
+    position: relative;
+}
+
+.lovexhjBookListItem span {
+    background: white;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    padding: 0 10px;
+    max-width: 40%;
+    overflow: hidden;
+}
+
+.lovexhjBookListItem span:nth-child(2) {
+    left: 0;
+}
+
+.lovexhjBookListItem span:nth-child(3) {
+    right: 0;
+}
+
+/* 目录没有内容 */
+.lovexhjBookListNone {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+}
+
+/* 内容页 */
+.lovexhjBookContent {
+    z-index: 0;
+}
+
+.lovexhjBookContent>div {
+    padding: 0 8%;
+}
+
+.lovexhjBookListTitle {
+    margin-bottom: 0;
+}
+
+.lovexhjBookListTime {
+    color: gray;
+    font-size: .9rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 内容页样式 */
+.lovexhjBookContent p,
+.lovexhjBookContent h1,
+.lovexhjBookContent h2,
+.lovexhjBookContent h3,
+.lovexhjBookContent li {
+    white-space: pre-wrap;
+    font-weight: normal;
+    margin: 5px 0;
+}
+
+.lovexhjBookContent h1 {
+    font-size: 1.5rem;
+}
+
+.lovexhjBookContent h2 {
+    font-size: 1.3rem;
+}
+
+.lovexhjBookContent h3 {
+    font-size: 1.2rem;
+}
+
+.lovexhjBookContent ul,
+.lovexhjBookContent ol {
+    margin: 10px 0 10px 15px;
+}
+
+/* 跳转按钮 */
+.lovexhjToButton {
+    position: absolute;
+    bottom: 10%;
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    color: rgb(55, 151, 222);
+    cursor: pointer;
+    border: 3px solid rgb(55, 151, 222);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.lovexhjToButton:hover {
+    color: white;
+    background: rgb(55, 151, 222);
+}
+
+/* 记仇 */
+.editWdnmd {
+    width: 500px;
+    background: white;
+    padding: 20px 30px;
+    position: relative;
+}
+
+.w-e-menu:last-child {
+    display: none;
+}
+
+/* 记仇标题 */
+.editWdnmdTitle {
+    padding: 10px;
+}
+
+.editWdnmdTitle input {
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* 记个仇 */
+.wdnmdsubmit {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px;
+    cursor: pointer;
+    color: white;
+    background: rgb(55, 151, 222);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    margin-top: 20px;
+}
+
+.wdnmdsubmit:hover {
+    background: rgb(100, 188, 255);
 }

@@ -1,8 +1,14 @@
 {
     "lovexhj": {
         "lovexhjHeader": {
-            "title": "📘 TQY 与 XHJ 的记仇本本"
+            "title": "TQY 与 XHJ 的记仇本本"
         },
-        "lovexhjBookSize": 300
+        "lovexhjBookSize": 300,
+        "pageTitle": "目录",
+        "pageloadNum": [1, 20],
+        "pageNone": "这么清静？还不去记仇？",
+        "wdnmdTextButton": ["记个仇", "查看小本本"],
+        "wdnmdPlaceholder": "这是什么仇呢？",
+        "wdnmdSubmit": "先记下了！"
     }
 }
