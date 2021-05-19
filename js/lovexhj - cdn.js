@@ -62,7 +62,7 @@ const lovexhj = new Vue({
         },
         // Json 配置获取
         getJsonConfig() {
-            let json = "../config/lovexhj.json";
+            let json = "https://lovexhj.oss-cn-beijing.aliyuncs.com/heng/config/lovexhj.json";
             let request = new XMLHttpRequest();
             request.open("get", json);
             request.send(null);
