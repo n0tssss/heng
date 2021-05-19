@@ -10,6 +10,7 @@
     <meta name="keywords" content="关键词">
     <link href="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/lovexhj.css">
 </head>
 
@@ -35,6 +36,7 @@
                             <!-- 目录页 -->
                             <div class="lovexhjBookList" v-if="wdnmdData">
                                 <p class="lovexhjBookListTitle">{{jsonConfig.lovexhj.pageTitle}}</p>
+                                <p class="lovexhjBookListTime">{{jsonConfig.lovexhj.pageSubTitle}}</p>
                                 <div class="lovexhjBookListItem" v-for="(item, index) in wdnmdData" :key="index"
                                     @click="selectWdnmd(index)">
                                     <p>....................................................</p>
@@ -85,6 +87,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/wangeditor@latest/dist/wangEditor.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
     <script src="./js/lovexhj.js"></script>
 </body>
 

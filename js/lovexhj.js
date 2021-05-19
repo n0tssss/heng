@@ -67,10 +67,14 @@ const lovexhj = new Vue({
                 "white": [
                     // 背景颜色
                     ["--bg-color", "rgb(241, 242, 246)"],
+                    // 字体颜色
+                    ["--font-color", "black"],
                 ],
                 "dark": [
                     // 背景颜色
                     ["--bg-color", "rgb(40, 44, 52)"],
+                    // 字体颜色
+                    ["--font-color", "white"],
                 ]
             };
 
@@ -136,6 +140,15 @@ const lovexhj = new Vue({
                 for (let i = 0; i < this.wdnmdData.length; i++) {
                     this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
                 }
+
+                setTimeout(() => {
+                    // 图片查看
+                    let Viewer = window.Viewer;
+                    let img = document.querySelectorAll(".lovexhjBookListContext img");
+                    img.forEach(item => {
+                        new Viewer(item);
+                    });
+                }, 0);
             }, err => {
                 console.log(err);
             });
@@ -223,7 +236,7 @@ const lovexhj = new Vue({
         // 记个仇
         wdnmdSubmit() {
             // 数据验证
-            if(!this.title && !this.body) {
+            if (!this.title && !this.body) {
                 return this.$message({
                     message: "记仇也需要认真填写哦！",
                     showClose: true,
@@ -231,7 +244,7 @@ const lovexhj = new Vue({
                 });
             }
             let password = prompt("记仇也需要密码的：");
-            if(!password) {
+            if (!password) {
                 return this.$message({
                     message: "密码呢？",
                     showClose: true,
@@ -243,8 +256,25 @@ const lovexhj = new Vue({
                 body: this.body,
                 password
             }).then(res => {
-                console.log(res);
-            }, err => {});
+                if(res.data.error) {
+                    return this.$message({
+                        message: res.data.error,
+                        showClose: true,
+                        type: "warning"
+                    });
+                }
+                if (res.data.data == "ok") {
+                    this.$message({
+                        message: "小本本又多了一条记仇~",
+                        showClose: true,
+                        type: "success"
+                    });
+                    // 刷新
+                    this.getWdnmd();
+                }
+            }, err => {
+                console.log(err);
+            });
         },
     },
 })

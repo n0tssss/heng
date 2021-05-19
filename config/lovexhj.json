@@ -5,6 +5,7 @@
         },
         "lovexhjBookSize": 300,
         "pageTitle": "目录",
+        "pageSubTitle": "点击记仇查看",
         "pageloadNum": [1, 20],
         "pageNone": "这么清静？还不去记仇？",
         "wdnmdTextButton": ["记个仇", "查看小本本"],

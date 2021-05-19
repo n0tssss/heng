@@ -28,6 +28,7 @@ body {
 
 /* 统一过渡 */
 #lovexhj,
+#lovexhj>div,
 .lovexhjBookMove {
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;
@@ -91,6 +92,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--font-color);
 }
 
 .lovexhjHeader p {
@@ -215,7 +217,7 @@ body {
 .lovexhjBookListTitle {
     font-size: 2rem;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0 0;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     font-weight: bold;
@@ -229,7 +231,7 @@ body {
     position: relative;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    margin: 10px 0;
+    margin: 15px 0;
     cursor: pointer;
 }
 
@@ -269,18 +271,14 @@ body {
 }
 
 .lovexhjBookContent>div {
-    padding: 0 8%;
-}
-
-.lovexhjBookListTitle {
-    margin-bottom: 0;
+    padding: 20px 8%;
 }
 
 .lovexhjBookListTime {
     color: gray;
     font-size: .9rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
 }
 
 /* 内容页样式 */
@@ -310,6 +308,42 @@ body {
 .lovexhjBookContent ol {
     margin: 10px 0 10px 15px;
 }
+
+.lovexhjBookContent blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+}
+
+.lovexhjBookContent img {
+    margin: 20px 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.lovexhjBookContent table,
+.lovexhjBookContent hr {
+    margin: 20px 0;
+}
+
+.lovexhjBookContent tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+.lovexhjBookContent th {
+    padding: 6px 13px;
+    border: 1px solid #d7ebff;
+}
+
+.lovexhjBookContent td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
 
 /* 跳转按钮 */
 .lovexhjToButton {
@@ -355,6 +389,7 @@ body {
     font-size: 1.5rem;
     text-align: center;
     width: 100%;
+    color: var(--font-color);
 }
 
 /* 记个仇 */
