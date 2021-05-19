@@ -1,11 +1,12 @@
 {
     "lovexhj": {
+        "loadingText": "正在打开小本本",
         "lovexhjHeader": {
             "title": "TQY 与 XHJ 的记仇本本"
         },
         "lovexhjBookSize": 300,
         "pageTitle": "目录",
-        "pageSubTitle": "点击记仇查看",
+        "pageSubTitle": "点击就可以查看啦",
         "pageloadNum": [1, 20],
         "pageNone": "这么清静？还不去记仇？",
         "wdnmdTextButton": ["记个仇", "查看小本本"],

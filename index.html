@@ -16,6 +16,15 @@
 
 <body>
     <div id="lovexhj">
+        <!-- 加载页面 -->
+        <div class="lovexhjLoading" v-if="jsonConfig">
+            <div>
+                <!-- 猪鼻子 -->
+                <div class="xhj"></div>
+                <!-- 加载文字 -->
+                <div class="xhjText">{{jsonConfig.lovexhj.loadingText}}</div>
+            </div>
+        </div>
         <div v-if="jsonConfig">
             <!-- 顶部菜单栏 -->
             <div class="lovexhjHeader">
@@ -63,7 +72,7 @@
                     </div>
                     <div class="lovexhjIndex">
                         <!-- 记仇 -->
-                        <div class="editWdnmd">
+                        <div class="editWdnmd" v-loading="wdnmdLoading">
                             <!-- 记仇标题 -->
                             <div class="editWdnmdTitle">
                                 <input type="text" v-model="title" :placeholder="jsonConfig.lovexhj.wdnmdPlaceholder">

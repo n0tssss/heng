@@ -1,3 +1,27 @@
+// 加载页面锁
+let lock1 = false;
+let lock2 = false;
+let lock3 = false;
+
+window.onload = function() {
+    lock1 = true;
+    unlockPage();
+}
+
+// 加载页面解除
+function unlockPage() {
+    // 是否解锁
+    if(!lock1 || !lock2 || !lock3) {
+        return;
+    }
+    // 获取加载页面
+    let load = document.querySelector(".lovexhjLoading");
+    load.style.animation = "unlock 1s ease-in-out forwards";
+    setTimeout(() => {
+        load.style.display = "none";
+    }, 1000);
+}
+
 const lovexhj = new Vue({
     el: "#lovexhj",
     data() {
@@ -10,6 +34,7 @@ const lovexhj = new Vue({
             wdnmdGo: true, // 是否在首页
             title: "", // 记仇标题
             body: "", // 记仇内容
+            wdnmdLoading: false, // 记仇转圈圈
         }
     },
     mounted() {
@@ -29,10 +54,10 @@ const lovexhj = new Vue({
                 }));
                 this.localConfig = JSON.parse(window.localStorage.getItem("lovexhj"));
             }
-
+            lock2 = true;
+            unlockPage();
             // 调试
             // console.log(this.localConfig);
-
             // 主题加载
             this.loadTheme();
         },
@@ -50,6 +75,8 @@ const lovexhj = new Vue({
 
                     // 同步处理
                     setTimeout(() => {
+                        lock3 = true;
+                        unlockPage();
                         // 书本大小设置
                         this.setBookSize();
                         // 记仇获取
@@ -69,12 +96,16 @@ const lovexhj = new Vue({
                     ["--bg-color", "rgb(241, 242, 246)"],
                     // 字体颜色
                     ["--font-color", "black"],
+                    // 加载转圈圈
+                    ["--load", "rgba(211, 211, 211, 0.6)"],
                 ],
                 "dark": [
                     // 背景颜色
                     ["--bg-color", "rgb(40, 44, 52)"],
                     // 字体颜色
                     ["--font-color", "white"],
+                    // 加载转圈圈
+                    ["--load", "rgba(0, 0, 0, 0.6)"],
                 ]
             };
 
@@ -130,17 +161,13 @@ const lovexhj = new Vue({
                 if (res.data.data.length == 0) {
                     return;
                 }
-
                 this.wdnmdData = res.data.data;
-
                 // 调试
                 // console.log(this.wdnmdData.data);
-
                 // 日期处理
                 for (let i = 0; i < this.wdnmdData.length; i++) {
                     this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
                 }
-
                 setTimeout(() => {
                     // 图片查看
                     let Viewer = window.Viewer;
@@ -200,7 +227,7 @@ const lovexhj = new Vue({
                 // "todo",
                 "justify",
                 "quote",
-                // "emoticon",
+                "emoticon",
                 "image",
                 "video",
                 "table",
@@ -226,17 +253,21 @@ const lovexhj = new Vue({
             ed.create();
 
             // 默认样式修改
-            document.querySelector(".w-e-toolbar").style.background = "transparent";
-            document.querySelector(".w-e-toolbar").style.borderWidth = "0";
-            document.querySelector(".w-e-text-container").style.background =
-                "transparent";
-            document.querySelector(".w-e-text-container").style.border =
-                "transparent";
+            let toolbar = document.querySelector(".w-e-toolbar");
+            let container = document.querySelector(".w-e-text-container");
+            toolbar.style.background = "transparent";
+            toolbar.style.borderWidth = "0";
+            toolbar.style.zIndex = "1000";
+            container.style.background = "transparent";
+            container.style.border = "transparent";
+            container.style.zIndex = "1000";
         },
         // 记个仇
         wdnmdSubmit() {
+            this.wdnmdLoading = true;
             // 数据验证
             if (!this.title && !this.body) {
+                this.wdnmdLoading = false;
                 return this.$message({
                     message: "记仇也需要认真填写哦！",
                     showClose: true,
@@ -245,6 +276,7 @@ const lovexhj = new Vue({
             }
             let password = prompt("记仇也需要密码的：");
             if (!password) {
+                this.wdnmdLoading = false;
                 return this.$message({
                     message: "密码呢？",
                     showClose: true,
@@ -256,7 +288,8 @@ const lovexhj = new Vue({
                 body: this.body,
                 password
             }).then(res => {
-                if(res.data.error) {
+                this.wdnmdLoading = false;
+                if (res.data.error) {
                     return this.$message({
                         message: res.data.error,
                         showClose: true,
