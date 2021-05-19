@@ -41,7 +41,9 @@
                             <!-- 白色底层 -->
                             <div class="lovexhjBookWhiteBg"></div>
                             <!-- 封面 -->
-                            <div class="lovexhjBookFm" @click="fmOpen"></div>
+                            <div class="lovexhjBookFm" @click="fmOpen">
+                                <p>{{jsonConfig.lovexhj.lovexhjHeader.bookTitle}}</p>
+                            </div>
                             <!-- 目录页 -->
                             <div class="lovexhjBookList" v-if="wdnmdData">
                                 <p class="lovexhjBookListTitle">{{jsonConfig.lovexhj.pageTitle}}</p>

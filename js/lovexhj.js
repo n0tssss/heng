@@ -26,7 +26,6 @@ const lovexhj = new Vue({
     el: "#lovexhj",
     data() {
         return {
-            ServerBase: "http://localhost:3000", // Node 后端地址
             localConfig: null, // 本地配置
             jsonConfig: null, // Json 配置
             wdnmdData: null, // 记仇数据
@@ -77,8 +76,6 @@ const lovexhj = new Vue({
                     setTimeout(() => {
                         lock3 = true;
                         unlockPage();
-                        // 书本大小设置
-                        this.setBookSize();
                         // 记仇获取
                         this.getWdnmd();
                         // 富文本编辑器创建
@@ -138,12 +135,6 @@ const lovexhj = new Vue({
         saveLocalConfig() {
             window.localStorage.setItem("lovexhj", JSON.stringify(this.localConfig));
         },
-        // 书本大小设置
-        setBookSize() {
-            let book = document.querySelector(".lovexhjBook");
-            book.style.width = this.jsonConfig.lovexhj.lovexhjBookSize + "px";
-            book.style.height = this.jsonConfig.lovexhj.lovexhjBookSize + 80 + "px";
-        },
         // 封面打开
         fmOpen() {
             let fm = document.querySelector(".lovexhjBookFm");
@@ -154,7 +145,7 @@ const lovexhj = new Vue({
         },
         // 记仇获取
         getWdnmd() {
-            axios.get(`${this.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
+            axios.get(`${this.jsonConfig.lovexhj.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
                 if (res.data.error) {
                     return console.log(res.data.error);
                 }
@@ -175,7 +166,7 @@ const lovexhj = new Vue({
                     img.forEach(item => {
                         new Viewer(item);
                     });
-                }, 0);
+                }, 100);
             }, err => {
                 console.log(err);
             });
@@ -283,7 +274,7 @@ const lovexhj = new Vue({
                     type: "warning"
                 });
             }
-            axios.post(this.ServerBase + "/add", {
+            axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
                 title: this.title,
                 body: this.body,
                 password

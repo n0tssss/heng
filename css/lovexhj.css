@@ -29,7 +29,9 @@ body {
 /* 统一过渡 */
 #lovexhj,
 #lovexhj>div,
-.lovexhjBookMove {
+.lovexhjBookMove,
+.lovexhjBookListItem span,
+.lovexhjBookListItem p {
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
@@ -286,6 +288,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    overflow: hidden;
 }
 
 /* 移动框架 */
@@ -310,6 +313,8 @@ body {
 /* 书本 */
 .lovexhjBook {
     position: absolute;
+    width: 350px;
+    height: 430px;
     background: rgb(0, 99, 178);
     border-radius: 50px 0 0 50px;
     -webkit-border-radius: 50px 0 0 50px;
@@ -342,7 +347,7 @@ body {
     -o-border-radius: 50px 0 0 50px;
 }
 
-/* 封面 */
+/* 统一大小 */
 .lovexhjBookFm,
 .lovexhjBookList,
 .lovexhjBookListBg,
@@ -356,11 +361,22 @@ body {
     transform-origin: left;
     transform-style: preserve-3d;
     border-left: 5px solid rgb(55, 151, 222);
-    cursor: pointer;
 }
 
+/* 封面 */
 .lovexhjBookFm {
     z-index: 3;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.lovexhjBookFm p {
+    font-size: 2.8rem;
+    color: white;
+    margin-top: 20%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* 目录页 */
@@ -376,6 +392,7 @@ body {
 
 .lovexhjBookListBg {
     z-index: 1;
+    cursor: pointer;
 }
 
 .lovexhjBookListBgActive {
@@ -437,6 +454,11 @@ body {
     right: 0;
 }
 
+.lovexhjBookListItem:hover span,
+.lovexhjBookListItem:hover p {
+    color: rgb(55, 151, 222);
+}
+
 /* 目录没有内容 */
 .lovexhjBookListNone {
     text-align: center;
@@ -458,7 +480,6 @@ body {
     color: gray;
     font-size: .9rem;
     text-align: center;
-    margin-bottom: 20px !important;
 }
 
 /* 内容页样式 */
@@ -502,6 +523,7 @@ body {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    cursor: pointer;
 }
 
 .lovexhjBookContent table,
@@ -528,7 +550,7 @@ body {
 /* 跳转按钮 */
 .lovexhjToButton {
     position: absolute;
-    bottom: 10%;
+    bottom: 8%;
     font-size: 1.2rem;
     padding: 10px 30px;
     color: rgb(55, 151, 222);
@@ -596,4 +618,40 @@ body {
 .el-loading-mask {
     background-color: var(--load) !important;
     backdrop-filter: blur(3px);
+}
+
+/* 自适应 */
+@media screen and (max-width: 600px) {
+    .lovexhjHeader p {
+        font-size: 1.5rem;
+    }
+
+    .lovexhjIndex {
+        width: 100%;
+    }
+
+    .editWdnmd {
+        width: 80%;
+    }
+
+    .lovexhjBook {
+        width: 260px;
+        height: 340px;
+    }
+
+    .lovexhjBookListItem {
+        border-bottom: 1px solid gray;
+    }
+
+    .lovexhjBookListItem p {
+        display: none;
+    }
+
+    .lovexhjBookListItem span {
+        max-width: 100%;
+        position: inherit;
+        display: block;
+        overflow: auto;
+        white-space: pre-wrap;
+    }
 }
