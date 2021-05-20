@@ -75,7 +75,7 @@ http.createServer(function (request, response) {
                 return response.end(back("爬", null));
             }
             // 数据验证
-            if (!result.title || !result.body || !result.security_hole) {
+            if (!result.title || !result.body) {
                 return response.end(back("少了点什么吧哥？", null));
             }
             // 请求发送
@@ -84,8 +84,7 @@ http.createServer(function (request, response) {
                 owner: config.Gitee.owner,
                 repo: config.Gitee.repo,
                 title: result.title,
-                body: result.body,
-                security_hole: result.security_hole
+                body: result.body
             }).then(res => {
                 if (res.status == 201) {
                     return response.end(back(null, "ok"));
@@ -97,6 +96,6 @@ http.createServer(function (request, response) {
     } else {
         return response.end(back("404", null));
     }
-}).listen(3000, () => {
-    console.log("服务端已启动！访问地址：http://localhost:3000");
+}).listen(3001, () => {
+    console.log("服务端已启动！访问地址：http://localhost:3001");
 });

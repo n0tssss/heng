@@ -37,7 +37,7 @@ const lovexhj = new Vue({
             pswForm: false, // 密码框
             password: "", // 密码
             loadMore: false, // 加载更多锁
-            sexSelect: "", // 选择的性别
+            sexSelect: "", // 选择的身份
         }
     },
     mounted() {
@@ -66,7 +66,7 @@ const lovexhj = new Vue({
         },
         // Json 配置获取
         getJsonConfig() {
-            let json = "../config/lovexhj.json";
+            let json = "https://lovexhj.oss-cn-beijing.aliyuncs.com/heng/config/lovexhj.json";
             let request = new XMLHttpRequest();
             request.open("get", json);
             request.send(null);
@@ -164,10 +164,15 @@ const lovexhj = new Vue({
                     this.wdnmdData = res.data.data;
                 }
                 // 调试
-                // console.log(this.wdnmdData.data);
-                // 日期处理
+                console.log(this.wdnmdData);
+                // 日期处理，标题与作者分割处理
                 for (let i = 0; i < this.wdnmdData.length; i++) {
                     this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
+                    let title = [];
+                    title.push(this.wdnmdData[i].title.substring(1, this.wdnmdData[i].title.indexOf("]")));
+                    title.push(this.wdnmdData[i].title.substring(this.wdnmdData[i].title.indexOf("]") + 1, this.wdnmdData[i].title.length));
+                    this.wdnmdData[i].title = title;
+                    console.log(this.wdnmdData[i].title);
                 }
                 // 是否为最后的数据
                 if(res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
@@ -269,12 +274,13 @@ const lovexhj = new Vue({
         },
         // 记个仇
         wdnmdSubmit() {
+            // 密码认证
             if(!this.password) {
                 return this.pswForm = true;
             }
             this.wdnmdLoading = true;
             // 数据验证
-            if (!this.title && !this.body) {
+            if (!this.title || !this.body || !this.sexSelect) {
                 this.wdnmdLoading = false;
                 return this.$message({
                     message: "记仇也需要认真填写哦！",
@@ -283,7 +289,7 @@ const lovexhj = new Vue({
                 });
             }
             axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
-                title: this.title,
+                title: `[${this.sexSelect}]${this.jsonConfig.lovexhj.wdnmdOk}`,
                 body: this.body,
                 password: this.password
             }).then(res => {

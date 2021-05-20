@@ -8,10 +8,13 @@
     <title>记仇小本本</title>
     <meta name="description" content="网站介绍">
     <meta name="keywords" content="关键词">
+    <meta name="keywords" content="记仇,本本,恋爱,love,tqy,xhj,n0ts">
+    <meta name="description" content="tqy与xhj的专属记仇小本本">
     <link rel="icon" href="https://n0ts.gitee.io/lovexhjto520/favicon.ico">
     <link href="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/lovexhj.css">
 </head>
 
@@ -54,7 +57,7 @@
                                 <div class="lovexhjBookListItem" v-for="(item, index) in wdnmdData" :key="index"
                                     @click="selectWdnmd(index)">
                                     <p>....................................................</p>
-                                    <span>{{item.title}}</span>
+                                    <span>{{item.title[1]}}</span>
                                     <span>{{item.created_at}}</span>
                                 </div>
                             </div>
@@ -66,8 +69,11 @@
                             <!-- 内容页 -->
                             <div class="lovexhjBookContent" v-if="wdnmdData">
                                 <div>
-                                    <p class="lovexhjBookListTitle">{{wdnmdData[wdnmdIndex].title}}</p>
-                                    <p class="lovexhjBookListTime">{{wdnmdData[wdnmdIndex].created_at}}</p>
+                                    <p class="lovexhjBookListTitle">{{wdnmdData[wdnmdIndex].title[1]}}</p>
+                                    <p class="lovexhjBookListTime">
+                                        <i class="fa fa-user-o"> {{wdnmdData[wdnmdIndex].title[0]}}</i>
+                                        <i class="fa fa-calendar"> {{wdnmdData[wdnmdIndex].created_at}}</i>
+                                    </p>
                                     <p class="lovexhjBookListContext" v-html="wdnmdData[wdnmdIndex].body"></p>
                                 </div>
                             </div>
@@ -80,11 +86,13 @@
                         <div class="editWdnmd" v-loading="wdnmdLoading">
                             <!-- 记仇标题 -->
                             <div class="editWdnmdTitle">
-                                <input class="editWdnmdTitleInput" type="text" v-model="title" :placeholder="jsonConfig.lovexhj.wdnmdPlaceholder">
+                                <input class="editWdnmdTitleInput" type="text" v-model="title"
+                                    :placeholder="jsonConfig.lovexhj.wdnmdPlaceholder">
                                 <el-select placeholder="你是？" v-model="sexSelect">
-                                    <el-option v-for="(item, index) in jsonConfig.lovexhj.sex" :key="index" :lable="item" :value="item">
-                                        <span style="float: left">{{ item }}</span>
-                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item }}</span>
+                                    <el-option v-for="(item, index) in jsonConfig.lovexhj.identity" :key="index"
+                                        :lable="item.name" :value="item.name">
+                                        <span>{{ item.name }}</span>
+                                        <span class="identityColor" :style="'background-color:' + item.color"></span>
                                     </el-option>
                                 </el-select>
                             </div>

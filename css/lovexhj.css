@@ -476,6 +476,10 @@ body {
     text-align: center;
 }
 
+.lovexhjBookListTime i {
+    margin: 0 10px;
+}
+
 /* 内容页样式 */
 .lovexhjBookContent p,
 .lovexhjBookContent h1,
@@ -595,9 +599,25 @@ body {
 }
 
 .el-select .el-input__inner {
-    font-size: 1rem;
+    font-size: 1.1rem;
     outline: none;
     border: none;
+}
+
+.el-select-dropdown__item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.identityColor {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
 
 /* 记个仇 */
