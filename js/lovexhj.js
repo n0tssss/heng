@@ -26,8 +26,9 @@ const lovexhj = new Vue({
     el: "#lovexhj",
     data() {
         return {
-            ServerBase: "https://heng.nutssss.cn/",
-            ServerBase: "http://localhost:3001", // 后端地址
+            // 后端地址
+            ServerBase: "https://heng.nutssss.cn",
+            ServerBase: "http://localhost:3001",
             localConfig: null, // 本地配置
             jsonConfig: null, // Json 配置
             wdnmdData: null, // 记仇数据
@@ -160,7 +161,7 @@ const lovexhj = new Vue({
                 if (res.data.data.length == 0) {
                     return;
                 }
-                if(add) {
+                if (add) {
                     this.wdnmdData = this.wdnmdData.concat(res.data.data);
                 } else {
                     this.wdnmdData = res.data.data;
@@ -176,7 +177,7 @@ const lovexhj = new Vue({
                     this.wdnmdData[i].title = title;
                 }
                 // 是否为最后的数据
-                if(res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
+                if (res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
                     this.loadMore = true;
                 }
             }, err => {
@@ -276,7 +277,7 @@ const lovexhj = new Vue({
         // 记个仇
         wdnmdSubmit() {
             // 密码认证
-            if(!this.password) {
+            if (!this.password) {
                 return this.pswForm = true;
             }
             this.wdnmdLoading = true;
@@ -319,7 +320,7 @@ const lovexhj = new Vue({
         // 设置密码
         setPsw(a) {
             this.pswForm = false;
-            if(a && this.password) {
+            if (a && this.password) {
                 this.wdnmdSubmit();
             }
         },
