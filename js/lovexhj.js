@@ -3,7 +3,7 @@ let lock1 = false;
 let lock2 = false;
 let lock3 = false;
 
-window.onload = function() {
+window.onload = function () {
     lock1 = true;
     unlockPage();
 }
@@ -11,7 +11,7 @@ window.onload = function() {
 // 加载页面解除
 function unlockPage() {
     // 是否解锁
-    if(!lock1 || !lock2 || !lock3) {
+    if (!lock1 || !lock2 || !lock3) {
         return;
     }
     // 获取加载页面
@@ -34,6 +34,9 @@ const lovexhj = new Vue({
             title: "", // 记仇标题
             body: "", // 记仇内容
             wdnmdLoading: false, // 记仇转圈圈
+            pswForm: false, // 密码框
+            password: "", // 密码
+            loadMore: false, // 加载更多锁
         }
     },
     mounted() {
@@ -80,6 +83,8 @@ const lovexhj = new Vue({
                         this.getWdnmd();
                         // 富文本编辑器创建
                         this.createEditor();
+                        // 每次加载数量存储
+                        this.pageLoadNum = this.jsonConfig.lovexhj.pageloadNum[1];
                     }, 0);
                 }
             }
@@ -144,7 +149,7 @@ const lovexhj = new Vue({
             fm.classList.add("lovexhjBookActive");
         },
         // 记仇获取
-        getWdnmd() {
+        getWdnmd(add) {
             axios.get(`${this.jsonConfig.lovexhj.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
                 if (res.data.error) {
                     return console.log(res.data.error);
@@ -152,12 +157,20 @@ const lovexhj = new Vue({
                 if (res.data.data.length == 0) {
                     return;
                 }
-                this.wdnmdData = res.data.data;
+                if(add) {
+                    this.wdnmdData = this.wdnmdData.concat(res.data.data);
+                } else {
+                    this.wdnmdData = res.data.data;
+                }
                 // 调试
                 // console.log(this.wdnmdData.data);
                 // 日期处理
                 for (let i = 0; i < this.wdnmdData.length; i++) {
                     this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
+                }
+                // 是否为最后的数据
+                if(res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
+                    this.loadMore = true;
                 }
             }, err => {
                 console.log(err);
@@ -232,7 +245,7 @@ const lovexhj = new Vue({
             // 代码高亮
             ed.highlight = this.hljs;
             // 提示文本
-            ed.config.placeholder = "这个仇我先记上！";
+            ed.config.placeholder = this.jsonConfig.lovexhj.editText;
             // 配置 onchange 回调函数
             ed.config.onchange = (content) => {
                 this.body = content;
@@ -248,13 +261,16 @@ const lovexhj = new Vue({
             let container = document.querySelector(".w-e-text-container");
             toolbar.style.background = "transparent";
             toolbar.style.borderWidth = "0";
-            toolbar.style.zIndex = "1000";
+            // toolbar.style.zIndex = "1000";
             container.style.background = "transparent";
             container.style.border = "transparent";
-            container.style.zIndex = "1000";
+            // container.style.zIndex = "1000";
         },
         // 记个仇
         wdnmdSubmit() {
+            if(!this.password) {
+                return this.pswForm = true;
+            }
             this.wdnmdLoading = true;
             // 数据验证
             if (!this.title && !this.body) {
@@ -265,19 +281,10 @@ const lovexhj = new Vue({
                     type: "warning"
                 });
             }
-            let password = prompt("记仇也需要密码的：");
-            if (!password) {
-                this.wdnmdLoading = false;
-                return this.$message({
-                    message: "密码呢？",
-                    showClose: true,
-                    type: "warning"
-                });
-            }
             axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
                 title: this.title,
                 body: this.body,
-                password
+                password: this.password
             }).then(res => {
                 this.wdnmdLoading = false;
                 if (res.data.error) {
@@ -289,7 +296,7 @@ const lovexhj = new Vue({
                 }
                 if (res.data.data == "ok") {
                     this.$message({
-                        message: "小本本又多了一条记仇~",
+                        message: this.jsonConfig.lovexhj.wdnmdOk,
                         showClose: true,
                         type: "success"
                     });
@@ -300,5 +307,21 @@ const lovexhj = new Vue({
                 console.log(err);
             });
         },
+        // 设置密码
+        setPsw(a) {
+            this.pswForm = false;
+            if(a && this.password) {
+                this.$message({
+                    message: this.jsonConfig.lovexhj.passwordSetOk,
+                    showClose: true,
+                    type: "success"
+                });
+            }
+        },
+        // 懒加载目录
+        lazyLoadList() {
+            this.jsonConfig.lovexhj.pageloadNum[0]++;
+            this.getWdnmd(true);
+        }
     },
 })

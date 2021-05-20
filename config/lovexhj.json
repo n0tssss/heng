@@ -8,10 +8,14 @@
         },
         "pageTitle": "目录",
         "pageSubTitle": "点击就可以查看啦",
-        "pageloadNum": [1, 20],
+        "pageloadNum": [1, 3],
         "pageNone": "这么清静？还不去记仇？",
         "wdnmdTextButton": ["记个仇", "查看小本本"],
         "wdnmdPlaceholder": "记仇也要来个标题吧！",
-        "wdnmdSubmit": "记到小本本"
+        "editText": "这个仇我先记上！",
+        "wdnmdSubmit": "记到小本本",
+        "wdnmdOk": "小本本又多了一条记仇~",
+        "passwordTitle": "记仇也是需要密码的！",
+        "passwordSetOk": "现在可以记仇啦！"
     }
 }
