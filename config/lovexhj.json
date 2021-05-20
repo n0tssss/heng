@@ -8,7 +8,7 @@
         },
         "pageTitle": "目录",
         "pageSubTitle": "点击就可以查看啦",
-        "pageloadNum": [1, 3],
+        "pageloadNum": [1, 10],
         "pageNone": "这么清静？还不去记仇？",
         "wdnmdTextButton": ["记个仇", "查看小本本"],
         "wdnmdPlaceholder": "记仇也要来个标题吧！",
