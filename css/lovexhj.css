@@ -580,13 +580,24 @@ body {
     padding: 10px;
 }
 
-.editWdnmdTitle input {
+.editWdnmdTitleInput  {
     outline: none;
     border: none;
     font-size: 1.5rem;
     text-align: center;
-    width: 100%;
+    width: 70%;
     color: var(--font-color);
+}
+
+/* 记仇选择框 */
+.el-select {
+    width: 30%;
+}
+
+.el-select .el-input__inner {
+    font-size: 1rem;
+    outline: none;
+    border: none;
 }
 
 /* 记个仇 */

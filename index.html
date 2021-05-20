@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>记仇小本本</title>
-    <meta name="description" content="网站介绍">
-    <meta name="keywords" content="关键词">
+    <!-- <meta name="description" content="网站介绍">
+    <meta name="keywords" content="关键词"> -->
+    <meta name="keywords" content="记仇,本本,恋爱,love,tqy,xhj,n0ts">
+    <meta name="description" content="tqy与xhj的专属记仇小本本">
     <link rel="icon" href="https://n0ts.gitee.io/lovexhjto520/favicon.ico">
     <link href="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
@@ -46,7 +48,9 @@
                                 <p>{{jsonConfig.lovexhj.lovexhjHeader.bookTitle}}</p>
                             </div>
                             <!-- 目录页 -->
-                            <div class="lovexhjBookList" v-if="wdnmdData" v-infinite-scroll="lazyLoadList" infinite-scroll-distance="1" infinite-scroll-delay="500" :infinite-scroll-disabled="loadMore">
+                            <div class="lovexhjBookList" v-if="wdnmdData" v-infinite-scroll="lazyLoadList"
+                                infinite-scroll-distance="1" infinite-scroll-delay="500"
+                                :infinite-scroll-disabled="loadMore">
                                 <p class="lovexhjBookListTitle">{{jsonConfig.lovexhj.pageTitle}}</p>
                                 <p class="lovexhjBookListTime">{{jsonConfig.lovexhj.pageSubTitle}}</p>
                                 <div class="lovexhjBookListItem" v-for="(item, index) in wdnmdData" :key="index"
@@ -78,7 +82,13 @@
                         <div class="editWdnmd" v-loading="wdnmdLoading">
                             <!-- 记仇标题 -->
                             <div class="editWdnmdTitle">
-                                <input type="text" v-model="title" :placeholder="jsonConfig.lovexhj.wdnmdPlaceholder">
+                                <input class="editWdnmdTitleInput" type="text" v-model="title" :placeholder="jsonConfig.lovexhj.wdnmdPlaceholder">
+                                <el-select placeholder="你是？" v-model="sexSelect">
+                                    <el-option v-for="(item, index) in jsonConfig.lovexhj.sex" :key="index" :lable="item" :value="item">
+                                        <span style="float: left">{{ item }}</span>
+                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item }}</span>
+                                    </el-option>
+                                </el-select>
                             </div>
                             <!-- 富文本 -->
                             <div id="ed"></div>
@@ -94,7 +104,8 @@
         </div>
 
         <!-- 密码输入 -->
-        <el-dialog :title="jsonConfig.lovexhj.passwordTitle" :visible.sync="pswForm" append-to-body="true" v-if="jsonConfig">
+        <el-dialog :title="jsonConfig.lovexhj.passwordTitle" :visible.sync="pswForm" append-to-body="true"
+            v-if="jsonConfig">
             <input type="password" v-model="password" class="lovexhjInputPsw" placeholder="输入密码丫！">
             <div slot="footer" class="dialog-footer">
                 <el-button @click="setPsw(false)">取 消</el-button>

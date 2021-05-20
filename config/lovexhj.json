@@ -1,6 +1,6 @@
 {
     "lovexhj": {
-        "ServerBase": "https://heng.nutssss.cn",
+        "ServerBase": "http://localhost:3000",
         "loadingText": "正在打开小本本",
         "lovexhjHeader": {
             "title": "TQY 与 XHJ 的记仇本本",
@@ -16,6 +16,7 @@
         "wdnmdSubmit": "记到小本本",
         "wdnmdOk": "小本本又多了一条记仇~",
         "passwordTitle": "记仇也是需要密码的！",
-        "passwordSetOk": "现在可以记仇啦！"
+        "passwordSetOk": "现在可以记仇啦！",
+        "sex": ["佩琪", "乔治"]
     }
 }

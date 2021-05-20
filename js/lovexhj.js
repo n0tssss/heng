@@ -37,6 +37,7 @@ const lovexhj = new Vue({
             pswForm: false, // 密码框
             password: "", // 密码
             loadMore: false, // 加载更多锁
+            sexSelect: "", // 选择的性别
         }
     },
     mounted() {

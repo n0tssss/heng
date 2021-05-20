@@ -43,7 +43,7 @@ http.createServer(function (request, response) {
 
         // 数据验证
         if (!page.query.page && !page.query.per_page) {
-            return response.end(back("分页参数缺失！", null));
+            return response.end(back("少了点什么吧哥？", null));
         }
 
         axios.get(`https://gitee.com/api/v5/repos/${config.Gitee.owner}/${config.Gitee.repo}/issues?access_token=${config.Gitee.access_token}&state=open&sort=created&direction=desc&page=${page.query.page}&per_page=${page.query.per_page}`).then(res => {
@@ -70,25 +70,29 @@ http.createServer(function (request, response) {
                 return response.end(back("error", null));
             }
 
-            // 数据验证
+            // 密码验证
             if (result.password != config.Gitee.password) {
                 return response.end(back("爬", null));
             }
-            if (result.title != "" && result.body != "") {
-                axios.post(`https://gitee.com/api/v5/repos/${config.Gitee.owner}/issues`, {
-                    access_token: config.Gitee.access_token,
-                    owner: config.Gitee.owner,
-                    repo: config.Gitee.repo,
-                    title: result.title,
-                    body: result.body
-                }).then(res => {
-                    if (res.status == 201) {
-                        return response.end(back(null, "ok"));
-                    }
-                }, err => {
-                    return response.end(back(err, null));
-                });
+            // 数据验证
+            if (!result.title || !result.body || !result.security_hole) {
+                return response.end(back("少了点什么吧哥？", null));
             }
+            // 请求发送
+            axios.post(`https://gitee.com/api/v5/repos/${config.Gitee.owner}/issues`, {
+                access_token: config.Gitee.access_token,
+                owner: config.Gitee.owner,
+                repo: config.Gitee.repo,
+                title: result.title,
+                body: result.body,
+                security_hole: result.security_hole
+            }).then(res => {
+                if (res.status == 201) {
+                    return response.end(back(null, "ok"));
+                }
+            }, err => {
+                return response.end(back(err, null));
+            });
         });
     } else {
         return response.end(back("404", null));
