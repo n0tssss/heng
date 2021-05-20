@@ -26,6 +26,8 @@ const lovexhj = new Vue({
     el: "#lovexhj",
     data() {
         return {
+            ServerBase: "https://heng.nutssss.cn/",
+            ServerBase: "http://localhost:3001", // 后端地址
             localConfig: null, // 本地配置
             jsonConfig: null, // Json 配置
             wdnmdData: null, // 记仇数据
@@ -66,7 +68,7 @@ const lovexhj = new Vue({
         },
         // Json 配置获取
         getJsonConfig() {
-            let json = "https://lovexhj.oss-cn-beijing.aliyuncs.com/heng/config/lovexhj.json";
+            let json = "../config/lovexhj.json";
             let request = new XMLHttpRequest();
             request.open("get", json);
             request.send(null);
@@ -151,7 +153,7 @@ const lovexhj = new Vue({
         },
         // 记仇获取
         getWdnmd(add) {
-            axios.get(`${this.jsonConfig.lovexhj.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
+            axios.get(`${this.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
                 if (res.data.error) {
                     return console.log(res.data.error);
                 }
@@ -164,7 +166,7 @@ const lovexhj = new Vue({
                     this.wdnmdData = res.data.data;
                 }
                 // 调试
-                console.log(this.wdnmdData);
+                // console.log(this.wdnmdData);
                 // 日期处理，标题与作者分割处理
                 for (let i = 0; i < this.wdnmdData.length; i++) {
                     this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
@@ -172,7 +174,6 @@ const lovexhj = new Vue({
                     title.push(this.wdnmdData[i].title.substring(1, this.wdnmdData[i].title.indexOf("]")));
                     title.push(this.wdnmdData[i].title.substring(this.wdnmdData[i].title.indexOf("]") + 1, this.wdnmdData[i].title.length));
                     this.wdnmdData[i].title = title;
-                    console.log(this.wdnmdData[i].title);
                 }
                 // 是否为最后的数据
                 if(res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
@@ -288,13 +289,14 @@ const lovexhj = new Vue({
                     type: "warning"
                 });
             }
-            axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
-                title: `[${this.sexSelect}]${this.jsonConfig.lovexhj.wdnmdOk}`,
+            axios.post(this.ServerBase + "/add", {
+                title: `[${this.sexSelect}]${this.title}`,
                 body: this.body,
                 password: this.password
             }).then(res => {
                 this.wdnmdLoading = false;
                 if (res.data.error) {
+                    this.password = "";
                     return this.$message({
                         message: res.data.error,
                         showClose: true,
@@ -318,11 +320,7 @@ const lovexhj = new Vue({
         setPsw(a) {
             this.pswForm = false;
             if(a && this.password) {
-                this.$message({
-                    message: this.jsonConfig.lovexhj.passwordSetOk,
-                    showClose: true,
-                    type: "success"
-                });
+                this.wdnmdSubmit();
             }
         },
         // 懒加载目录

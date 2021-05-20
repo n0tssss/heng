@@ -1,6 +1,5 @@
 {
     "lovexhj": {
-        "ServerBase": "http://localhost:3001",
         "loadingText": "正在打开小本本",
         "lovexhjHeader": {
             "title": "TQY 与 XHJ 的记仇本本",
