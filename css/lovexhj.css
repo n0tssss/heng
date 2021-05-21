@@ -21,6 +21,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.w-e-text * {
+    white-space: pre-wrap;
+}
+
 html,
 body {
     height: 100%;
