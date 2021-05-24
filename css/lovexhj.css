@@ -11,7 +11,6 @@
     word-break: break-all;
     outline: none;
     font-family: lovexhj;
-    white-space: nowrap;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -21,8 +20,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.w-e-text * {
-    white-space: pre-wrap;
+[v-cloak] {
+    display: none;
 }
 
 html,
@@ -421,7 +420,6 @@ body {
 /* 目录item */
 .lovexhjBookListItem {
     width: 100%;
-    white-space: nowrap;
     overflow: hidden;
     position: relative;
     backface-visibility: hidden;
@@ -462,7 +460,6 @@ body {
     text-align: center;
     margin: 30px 0;
     font-size: 1.2rem;
-    white-space: pre-wrap;
 }
 
 /* 内容页 */
@@ -490,7 +487,6 @@ body {
 .lovexhjBookContent h2,
 .lovexhjBookContent h3,
 .lovexhjBookContent li {
-    white-space: pre-wrap;
     font-weight: normal;
     margin: 10px 0;
 }
@@ -573,10 +569,11 @@ body {
 /* 记仇 */
 .editWdnmd {
     width: 500px;
-    background: white;
+    background: var(--box-color);
     padding: 20px 30px;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    color: var(--font-color);
 }
 
 .w-e-menu:last-child {
@@ -586,15 +583,17 @@ body {
 /* 记仇标题 */
 .editWdnmdTitle {
     padding: 10px;
+    display: flex;
 }
 
-.editWdnmdTitleInput  {
+.editWdnmdTitleInput {
     outline: none;
     border: none;
     font-size: 1.5rem;
     text-align: center;
     width: 70%;
     color: var(--font-color);
+    background: var(--box-color);
 }
 
 /* 记仇选择框 */
@@ -606,6 +605,8 @@ body {
     font-size: 1.1rem;
     outline: none;
     border: none;
+    background: var(--box-color);
+    padding-left: 20px;
 }
 
 .el-select-dropdown__item {
@@ -622,6 +623,21 @@ body {
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+.el-select-dropdown {
+    background: var(--box-color);
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+}
+
+.el-popper[x-placement^=bottom] .popper__arrow {
+    display: none;
+}
+
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+    background: var(--box-color);
 }
 
 /* 记个仇 */
@@ -693,6 +709,31 @@ body {
         position: inherit;
         display: block;
         overflow: auto;
-        white-space: pre-wrap;
+    }
+
+    .editWdnmdTitle {
+        display: block;
+    }
+
+    .editWdnmdTitleInput {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+
+    .el-select {
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+    }
+
+    .el-select .el-input__inner {
+        font-size: 1rem;
+    }
+
+    .identityColor {
+        margin-left: 10px;
     }
 }

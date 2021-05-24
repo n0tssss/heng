@@ -21,12 +21,6 @@
 
 前端与后端都存在一个 `config` 的文件夹，里面是网站的 **配置文件**
 
-## 前端配置
-
-前端的文案内容都在 `./config/lovexhj.json` 进行配置，其中 `ServerBase` 为 Node 部署后的地址；
-
-修改完毕后直接丢到服务器一把梭即可；
-
 ## 后端配置
 
 后端需要配置 Gitee Open API，首先进入 `Gitee - 个人设置 - 私人令牌`，[点我进入](https://gitee.com/profile/personal_access_tokens)
@@ -38,9 +32,22 @@
 生成后将令牌填写到后端的 `./api/config/lovexhj.json` 中的 `access_token` 中，
 `owner` 填写自己的账号，repo 则是填写自己的仓库名称（仓库可设为私有），`password` 则是自己设置一个记仇上传的密码，部署即可；
 
-我使用的是宝塔面板中的 PM2管理器 进行 Node 项目的部署
+我使用的是宝塔面板中的 PM2管理器 进行 Node 项目的部署，部署后使用映射功能就可通过链接访问 API；
+
+## 前端配置
+
+首先在 `./js/lovexhj.js` 中，找到 `ServerBase`，更改成自己后端映射的地址；
+
+文案的文案内容都在 `./config/lovexhj.json` 进行配置；
+
+修改完毕后直接丢到服务器一把梭即可；
 
 # 更新日志
+
+> 2021-5-24
+
++ 修改了部分样式
++ 修复了未加载数据之前不会显示 Vue 代码
 
 > 2021-5-21
 

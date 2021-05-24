@@ -26,9 +26,7 @@ const lovexhj = new Vue({
     el: "#lovexhj",
     data() {
         return {
-            // 后端地址
-            ServerBase: "https://heng.nutssss.cn",
-            ServerBase: "http://localhost:3001",
+            ServerBase: "http://localhost:3001", // 后端地址
             localConfig: null, // 本地配置
             jsonConfig: null, // Json 配置
             wdnmdData: null, // 记仇数据
@@ -100,6 +98,8 @@ const lovexhj = new Vue({
                 "white": [
                     // 背景颜色
                     ["--bg-color", "rgb(241, 242, 246)"],
+                    // 框架颜色
+                    ["--box-color", "white"],
                     // 字体颜色
                     ["--font-color", "black"],
                     // 加载转圈圈
@@ -107,7 +107,9 @@ const lovexhj = new Vue({
                 ],
                 "dark": [
                     // 背景颜色
-                    ["--bg-color", "rgb(40, 44, 52)"],
+                    ["--bg-color", "rgb(33, 37, 43)"],
+                    // 框架颜色
+                    ["--box-color", "rgb(40, 44, 52)"],
                     // 字体颜色
                     ["--font-color", "white"],
                     // 加载转圈圈
@@ -259,7 +261,7 @@ const lovexhj = new Vue({
                 this.body = content;
             }
             // 高度设置
-            ed.config.height = 200;
+            ed.config.height = 150;
 
             // 创建
             ed.create();
