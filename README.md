@@ -13,8 +13,8 @@
 
 # 使用到的技术
 
-前端：Vue + ElementUI
-后端：Node
+前端：Vue + ElementUI  
+后端：Node  
 数据存储：Gitee Issues
 
 # 使用教程
