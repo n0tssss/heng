@@ -224,7 +224,7 @@ const lovexhj = new Vue({
                 let resData = res.data.data;
 
                 // 调试
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 // console.log(this.wdnmdData);
 
                 // 日期处理，标题与作者分割处理
