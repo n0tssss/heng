@@ -428,6 +428,14 @@ body {
     cursor: pointer;
 }
 
+/* 加载文字 */
+.lovexhjBookListLoad {
+    text-align: center;
+    color: gray;
+    margin: 10px 0;
+    font-size: .8rem;
+}
+
 .lovexhjBookListItem p {
     position: relative;
 }

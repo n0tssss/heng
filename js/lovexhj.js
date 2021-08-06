@@ -1,14 +1,22 @@
-// 加载页面锁
+/**
+ * 加载页面锁
+ */
 let lock1 = false;
 let lock2 = false;
 let lock3 = false;
 
+/**
+ * 网页加载
+ */
 window.onload = function () {
     lock1 = true;
     unlockPage();
 }
 
-// 加载页面解除
+/**
+ * 加载页面解除
+ * @returns
+ */
 function unlockPage() {
     // 是否解锁
     if (!lock1 || !lock2 || !lock3) {
@@ -22,11 +30,22 @@ function unlockPage() {
     }, 1000);
 }
 
+/**
+ * Vue
+ */
 const lovexhj = new Vue({
+    /**
+     * 根
+     */
     el: "#lovexhj",
+
+    /**
+     * 初始数据
+     * @returns
+     */
     data() {
         return {
-            ServerBase: "http://localhost:3001", // 后端地址
+            ServerBase: "", // 后端地址
             localConfig: null, // 本地配置
             jsonConfig: null, // Json 配置
             wdnmdData: null, // 记仇数据
@@ -41,14 +60,24 @@ const lovexhj = new Vue({
             sexSelect: "", // 选择的身份
         }
     },
+
+    /**
+     * 数据渲染完毕
+     */
     mounted() {
         // 本地配置获取
         this.getLocalConfig();
         // Json 配置获取
         this.getJsonConfig();
     },
+
+    /**
+     * 方法
+     */
     methods: {
-        // 本地配置获取
+        /**
+         * 本地配置获取
+         */
         getLocalConfig() {
             // 获取配置，没有则初始化
             this.localConfig = JSON.parse(window.localStorage.getItem("lovexhj"));
@@ -65,7 +94,10 @@ const lovexhj = new Vue({
             // 主题加载
             this.loadTheme();
         },
-        // Json 配置获取
+
+        /**
+         * Json 配置获取
+         */
         getJsonConfig() {
             let json = "../config/lovexhj.json";
             let request = new XMLHttpRequest();
@@ -91,7 +123,10 @@ const lovexhj = new Vue({
                 }
             }
         },
-        // 主题设置
+
+        /**
+         * 主题设置
+         */
         loadTheme() {
             // 颜色配置
             let themeConfig = {
@@ -129,7 +164,10 @@ const lovexhj = new Vue({
                 document.documentElement.style.setProperty(item[0], item[1]);
             });
         },
-        // 切换主题
+
+        /**
+         * 切换主题
+         */
         checkTheme() {
             // 主题修改
             if (this.localConfig.theme == "light") {
@@ -142,51 +180,82 @@ const lovexhj = new Vue({
             // 刷新主题
             this.loadTheme();
         },
-        // 本地配置存储
+
+        /**
+         * 本地配置存储
+         */
         saveLocalConfig() {
             window.localStorage.setItem("lovexhj", JSON.stringify(this.localConfig));
         },
-        // 封面打开
+
+        /**
+         * 封面打开
+         * @returns
+         */
         fmOpen() {
-            let fm = document.querySelector(".lovexhjBookFm");
+            // 里面是否已经关闭
+            let list = this.$refs.lovexhjBookList;
+            if (list.className.includes("lovexhjBookActive")) {
+                list.classList.remove("lovexhjBookActive");
+                return this.$refs.lovexhjBookListBg.classList.remove("lovexhjBookActive", "lovexhjBookListBgActive");
+            }
+
+            let fm = this.$refs.lovexhjBookFm;
             if (fm.className.includes("lovexhjBookActive")) {
                 return fm.classList.remove("lovexhjBookActive");
             }
             fm.classList.add("lovexhjBookActive");
         },
-        // 记仇获取
+
+        /**
+         * 记仇获取
+         * @param {*} add 是否继续加载
+         */
         getWdnmd(add) {
             axios.get(`${this.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
+                // 错误检测
                 if (res.data.error) {
                     return console.log(res.data.error);
                 }
+                // 数据是否存在
                 if (res.data.data.length == 0) {
                     return;
                 }
-                if (add) {
-                    this.wdnmdData = this.wdnmdData.concat(res.data.data);
-                } else {
-                    this.wdnmdData = res.data.data;
-                }
+                let resData = res.data.data;
+
                 // 调试
+                console.log(res.data.data);
                 // console.log(this.wdnmdData);
+
                 // 日期处理，标题与作者分割处理
-                for (let i = 0; i < this.wdnmdData.length; i++) {
-                    this.wdnmdData[i].created_at = new Date(this.wdnmdData[i].created_at).toLocaleDateString();
+                for (let i = 0; i < resData.length; i++) {
+                    resData[i].created_at = new Date(resData[i].created_at).toLocaleDateString();
                     let title = [];
-                    title.push(this.wdnmdData[i].title.substring(1, this.wdnmdData[i].title.indexOf("]")));
-                    title.push(this.wdnmdData[i].title.substring(this.wdnmdData[i].title.indexOf("]") + 1, this.wdnmdData[i].title.length));
-                    this.wdnmdData[i].title = title;
+                    title.push(resData[i].title.substring(1, resData[i].title.indexOf("]")));
+                    title.push(resData[i].title.substring(resData[i].title.indexOf("]") + 1, resData[i].title.length));
+                    resData[i].title = title;
                 }
+
+                // 如果是继续加载则合并原来数据
+                if (add) {
+                    this.wdnmdData = this.wdnmdData.concat(resData);
+                } else {
+                    this.wdnmdData = resData;
+                }
+
                 // 是否为最后的数据
-                if (res.data.data.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
+                if (resData.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
                     this.loadMore = true;
                 }
             }, err => {
                 console.log(err);
             });
         },
-        // 记仇选择
+
+        /**
+         * 记仇选择
+         * @param {*} i 记仇的索引
+         */
         selectWdnmd(i) {
             setTimeout(() => {
                 // 图片查看
@@ -199,19 +268,26 @@ const lovexhj = new Vue({
             this.wdnmdIndex = i;
             this.ListOpen();
         },
-        // 目录翻页
+
+        /**
+         * 目录翻页
+         * @returns
+         */
         ListOpen() {
-            let list = document.querySelector(".lovexhjBookList");
+            let list = this.$refs.lovexhjBookList;
             if (list.className.includes("lovexhjBookActive")) {
                 list.classList.remove("lovexhjBookActive");
-                return document.querySelector(".lovexhjBookListBg").classList.remove("lovexhjBookActive", "lovexhjBookListBgActive");
+                return this.$refs.lovexhjBookListBg.classList.remove("lovexhjBookActive", "lovexhjBookListBgActive");
             }
             list.classList.add("lovexhjBookActive");
-            document.querySelector(".lovexhjBookListBg").classList.add("lovexhjBookActive", "lovexhjBookListBgActive");
+            this.$refs.lovexhjBookListBg.classList.add("lovexhjBookActive", "lovexhjBookListBgActive");
         },
-        // 板块切换
+
+        /**
+         * 板块切换
+         */
         move() {
-            let dom = document.querySelector(".lovexhjBookMove");
+            let dom = this.$refs.lovexhjBookMove;
             if (this.wdnmdGo) {
                 dom.style.transform = "translateX(-50%)";
             } else {
@@ -219,7 +295,10 @@ const lovexhj = new Vue({
             }
             this.wdnmdGo = !this.wdnmdGo;
         },
-        // 富文本编辑器创建
+
+        /**
+         * 富文本编辑器创建
+         */
         createEditor() {
             let E = window.wangEditor;
             let ed = new E("#ed");
@@ -276,7 +355,10 @@ const lovexhj = new Vue({
             container.style.border = "transparent";
             // container.style.zIndex = "1000";
         },
-        // 记个仇
+        /**
+         * 记个仇
+         * @returns
+         */
         wdnmdSubmit() {
             // 密码认证
             if (!this.password) {
@@ -319,14 +401,21 @@ const lovexhj = new Vue({
                 console.log(err);
             });
         },
-        // 设置密码
+
+        /**
+         * 设置密码
+         * @param {*} a 是否取消设置密码
+         */
         setPsw(a) {
             this.pswForm = false;
             if (a && this.password) {
                 this.wdnmdSubmit();
             }
         },
-        // 懒加载目录
+
+        /**
+         * 懒加载目录
+         */
         lazyLoadList() {
             this.jsonConfig.lovexhj.pageloadNum[0]++;
             this.getWdnmd(true);

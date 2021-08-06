@@ -43,13 +43,13 @@
                             <!-- 白色底层 -->
                             <div class="lovexhjBookWhiteBg"></div>
                             <!-- 封面 -->
-                            <div class="lovexhjBookFm" @click="fmOpen">
+                            <div class="lovexhjBookFm" @click="fmOpen" ref="lovexhjBookFm">
                                 <p>{{jsonConfig.lovexhj.lovexhjHeader.bookTitle}}</p>
                             </div>
                             <!-- 目录页 -->
                             <div class="lovexhjBookList" v-if="wdnmdData" v-infinite-scroll="lazyLoadList"
                                 infinite-scroll-distance="1" infinite-scroll-delay="500"
-                                :infinite-scroll-disabled="loadMore">
+                                :infinite-scroll-disabled="loadMore" ref="lovexhjBookList">
                                 <p class="lovexhjBookListTitle">{{jsonConfig.lovexhj.pageTitle}}</p>
                                 <p class="lovexhjBookListTime">{{jsonConfig.lovexhj.pageSubTitle}}</p>
                                 <div class="lovexhjBookListItem" v-for="(item, index) in wdnmdData" :key="index"
@@ -58,12 +58,14 @@
                                     <span>{{item.title[1]}}</span>
                                     <span>{{item.created_at}}</span>
                                 </div>
+                                <div class="lovexhjBookListItem lovexhjBookListLoad" v-if="!loadMore">加载中</div>
+                                <div class="lovexhjBookListItem lovexhjBookListLoad" v-else>没有仇啦已经！</div>
                             </div>
                             <div class="lovexhjBookList" v-else>
                                 <p class="lovexhjBookListNone">{{jsonConfig.lovexhj.pageNone}}</p>
                             </div>
                             <!-- 目录页背部 -->
-                            <div class="lovexhjBookListBg" @click="ListOpen"></div>
+                            <div class="lovexhjBookListBg" @click="ListOpen" ref="lovexhjBookListBg"></div>
                             <!-- 内容页 -->
                             <div class="lovexhjBookContent" v-if="wdnmdData">
                                 <div>
