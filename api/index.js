@@ -26,7 +26,7 @@ http.createServer(function (request, response) {
     // 跨域
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    response.setHeader("content-type", "application/json")
+    response.setHeader("content-type", "application/json");
 
     // 获取请求地址
     let url = request.url;
@@ -94,7 +94,7 @@ http.createServer(function (request, response) {
             });
         });
     } else {
-        return response.end(back("404", null));
+        return response.end(back("后端已成功跑起来了！", null));
     }
 }).listen(3001, () => {
     console.log("服务端已启动！访问地址：http://localhost:3001");
