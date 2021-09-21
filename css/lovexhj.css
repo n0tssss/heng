@@ -18,6 +18,7 @@
     -o-user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: text !important;
 }
 
 [v-cloak] {
@@ -32,25 +33,25 @@ body {
 
 /* 统一过渡 */
 #lovexhj,
-#lovexhj>div,
+#lovexhj > div,
 .lovexhjBookMove,
 .lovexhjBookListItem span,
 .lovexhjBookListItem p {
-    transition: all .3s ease-in-out;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
 }
 
 /* 按钮过渡 */
 .lovexhjToButton,
 .wdnmdsubmit {
-    transition: all .1s ease-in-out;
-    -webkit-transition: all .1s ease-in-out;
-    -moz-transition: all .1s ease-in-out;
-    -ms-transition: all .1s ease-in-out;
-    -o-transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
 }
 
 /* 定位居中 */
@@ -85,7 +86,7 @@ body {
 
 /* 主框架 */
 #lovexhj,
-#lovexhj>div {
+#lovexhj > div {
     position: relative;
     height: 100%;
     background: var(--bg-color);
@@ -127,7 +128,7 @@ body {
 
 .xhj::after,
 .xhj::before {
-    content: '';
+    content: "";
     display: block;
     width: 20%;
     height: 60%;
@@ -321,12 +322,12 @@ body {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
-.lovexhjBook>div {
-    transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
-    -webkit-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
-    -moz-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
-    -ms-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
-    -o-transition: all 1s cubic-bezier(.78, -0.56, .24, 1.51);
+.lovexhjBook > div {
+    transition: all 1s cubic-bezier(0.78, -0.56, 0.24, 1.51);
+    -webkit-transition: all 1s cubic-bezier(0.78, -0.56, 0.24, 1.51);
+    -moz-transition: all 1s cubic-bezier(0.78, -0.56, 0.24, 1.51);
+    -ms-transition: all 1s cubic-bezier(0.78, -0.56, 0.24, 1.51);
+    -o-transition: all 1s cubic-bezier(0.78, -0.56, 0.24, 1.51);
 }
 
 /* 白色底层 */
@@ -433,7 +434,7 @@ body {
     text-align: center;
     color: gray;
     margin: 10px 0;
-    font-size: .8rem;
+    font-size: 0.8rem;
 }
 
 .lovexhjBookListItem p {
@@ -475,13 +476,13 @@ body {
     z-index: 0;
 }
 
-.lovexhjBookContent>div {
+.lovexhjBookContent > div {
     padding: 20px 8%;
 }
 
 .lovexhjBookListTime {
     color: gray;
-    font-size: .9rem;
+    font-size: 0.9rem;
     text-align: center;
 }
 
@@ -551,7 +552,6 @@ body {
     padding: 6px 13px;
     border: 1px solid #dfe2e5;
 }
-
 
 /* 跳转按钮 */
 .lovexhjToButton {
@@ -636,10 +636,10 @@ body {
 .el-select-dropdown {
     background: var(--box-color);
     border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
-.el-popper[x-placement^=bottom] .popper__arrow {
+.el-popper[x-placement^="bottom"] .popper__arrow {
     display: none;
 }
 

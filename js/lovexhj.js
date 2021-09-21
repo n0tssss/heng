@@ -248,7 +248,12 @@ const lovexhj = new Vue({
                     this.loadMore = true;
                 }
             }, err => {
-                console.log(err);
+                console.log("报错啦！", err);
+                this.$message({
+                    message: "获取记仇失败！请查看开发者工具报错！",
+                    showClose: true,
+                    type: "error"
+                });
             });
         },
 
