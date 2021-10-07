@@ -248,6 +248,7 @@ const lovexhj = new Vue({
                     this.loadMore = true;
                 }
             }, err => {
+                this.loadMore = true;
                 console.log("报错啦！", err);
                 this.$message({
                     message: "获取记仇失败！请查看开发者工具报错！",
@@ -419,9 +420,13 @@ const lovexhj = new Vue({
         },
 
         /**
-         * 懒加载目录
+         * 下一页
          */
         lazyLoadList() {
+            // 当有数据时才会开启翻页加载
+            if(!this.wdnmdData) {
+                return;
+            }
             this.jsonConfig.lovexhj.pageloadNum[0]++;
             this.getWdnmd(true);
         }

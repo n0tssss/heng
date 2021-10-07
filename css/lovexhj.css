@@ -429,6 +429,10 @@ body {
     cursor: pointer;
 }
 
+.lovexhjBookListItem:last-child {
+    cursor: default;
+}
+
 /* 加载文字 */
 .lovexhjBookListLoad {
     text-align: center;
@@ -706,6 +710,10 @@ body {
 
     .lovexhjBookListItem {
         border-bottom: 1px solid gray;
+    }
+
+    .lovexhjBookListItem:last-child {
+        border: none;
     }
 
     .lovexhjBookListItem p {
