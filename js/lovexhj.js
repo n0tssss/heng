@@ -3,7 +3,7 @@
  */
 let lock1 = false;
 let lock2 = false;
-let lock3 = false;
+import jsonConfig from "../config/config.js";
 
 /**
  * 网页加载
@@ -19,7 +19,7 @@ window.onload = function () {
  */
 function unlockPage() {
     // 是否解锁
-    if (!lock1 || !lock2 || !lock3) {
+    if (!lock1 || !lock2) {
         return;
     }
     // 获取加载页面
@@ -33,7 +33,7 @@ function unlockPage() {
 /**
  * Vue
  */
-const lovexhj = new Vue({
+new Vue({
     /**
      * 根
      */
@@ -45,9 +45,8 @@ const lovexhj = new Vue({
      */
     data() {
         return {
-            ServerBase: "http://localhost:3001", // 后端地址
             localConfig: null, // 本地配置
-            jsonConfig: null, // Json 配置
+            jsonConfig, // Json 配置
             wdnmdData: null, // 记仇数据
             wdnmdIndex: 0, // 当前选择的记仇
             wdnmdGo: true, // 是否在首页
@@ -67,8 +66,8 @@ const lovexhj = new Vue({
     mounted() {
         // 本地配置获取
         this.getLocalConfig();
-        // Json 配置获取
-        this.getJsonConfig();
+        // 记仇获取
+        this.getWdnmd();
     },
 
     /**
@@ -93,35 +92,6 @@ const lovexhj = new Vue({
             // console.log(this.localConfig);
             // 主题加载
             this.loadTheme();
-        },
-
-        /**
-         * Json 配置获取
-         */
-        getJsonConfig() {
-            let json = "../config/lovexhj.json";
-            let request = new XMLHttpRequest();
-            request.open("get", json);
-            request.send(null);
-            request.onload = () => {
-                if (request.status == 200) {
-                    this.jsonConfig = JSON.parse(request.responseText);
-                    // 调试
-                    // console.log(this.jsonConfig);
-
-                    // 同步处理
-                    setTimeout(() => {
-                        lock3 = true;
-                        unlockPage();
-                        // 记仇获取
-                        this.getWdnmd();
-                        // 富文本编辑器创建
-                        this.createEditor();
-                        // 每次加载数量存储
-                        this.pageLoadNum = this.jsonConfig.lovexhj.pageloadNum[1];
-                    }, 0);
-                }
-            }
         },
 
         /**
@@ -212,7 +182,7 @@ const lovexhj = new Vue({
          * @param {*} add 是否继续加载
          */
         getWdnmd(add) {
-            axios.get(`${this.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
+            axios.get(`${this.jsonConfig.lovexhj.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
                 // 错误检测
                 if (res.data.error) {
                     return console.log(res.data.error);
@@ -380,7 +350,7 @@ const lovexhj = new Vue({
                     type: "warning"
                 });
             }
-            axios.post(this.ServerBase + "/add", {
+            axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
                 title: `[${this.sexSelect}]${this.title}`,
                 body: this.body,
                 password: this.password

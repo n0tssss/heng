@@ -5,7 +5,7 @@ const axios = require("axios");
 // file-system 文件系统
 const fs = require("fs");
 // 读取配置文件
-const config = require("./config/lovexhj");
+const config = require("./config/config");
 // 创建服务器
 const app = express();
 
