@@ -465,7 +465,7 @@ body {
 
 .lovexhjBookListItem:hover span,
 .lovexhjBookListItem:hover p {
-    color: rgb(55, 151, 222);
+    color: rgb(55, 151, 222) !important;
 }
 
 /* 目录没有内容 */
@@ -610,7 +610,7 @@ body {
 
 /* 记仇选择框 */
 .el-select {
-    width: 30%;
+    width: 150px;
 }
 
 .el-select .el-input__inner {
@@ -689,8 +689,17 @@ body {
     border-bottom: 1px solid gray;
 }
 
+/* 密码弹框 */
+.el-dialog {
+    width: 80%;
+}
+
 /* 自适应 */
 @media screen and (max-width: 600px) {
+    .lovexhjBookListTitle {
+        font-size: 1.5rem;
+    }
+
     .lovexhjHeader p {
         font-size: 1.5rem;
     }
@@ -708,10 +717,6 @@ body {
         height: 340px;
     }
 
-    .lovexhjBookListItem {
-        border-bottom: 1px solid gray;
-    }
-
     .lovexhjBookListItem:last-child {
         border: none;
     }
@@ -725,6 +730,11 @@ body {
         position: inherit;
         display: block;
         overflow: auto;
+    }
+
+    .lovexhjBookListItem span:last-child {
+        font-size: .8rem;
+        color: gray;
     }
 
     .editWdnmdTitle {

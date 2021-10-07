@@ -1,8 +1,18 @@
+/*
+ * @Author: N0ts
+ * @Date: 2021-05-11 19:32:54
+ * @LastEditTime: 2021-10-07 17:32:14
+ * @Description: 小本本 js
+ * @FilePath: \heng\js\lovexhj.js
+ * @Mail：mail@n0ts.cn
+ */
+
 /**
  * 加载页面锁
  */
 let lock1 = false;
 let lock2 = false;
+// 配置文件地址
 import jsonConfig from "../config/config.js";
 
 /**
