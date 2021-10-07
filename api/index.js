@@ -4,11 +4,14 @@ const express = require("express");
 const axios = require("axios");
 // file-system 文件系统
 const fs = require("fs");
-
+// 读取配置文件
+const config = require("./config/lovexhj");
 // 创建服务器
 const app = express();
 
-// 获取 post 参数
+/**
+ * 获取 post 参数
+ */
 app.use(
     express.urlencoded({
         extended: false
@@ -16,13 +19,12 @@ app.use(
 );
 app.use(express.json());
 
-// 读取配置文件
-let config = null;
-fs.readFile("./config/lovexhj.json", (err, data) => {
-    config = JSON.parse(data.toString());
-});
-
-// 返回类型
+/**
+ * 返回类型
+ * @param {*} err 错误信息
+ * @param {*} data 数据
+ * @returns
+ */
 function back(err, data) {
     return {
         error: err,
@@ -122,5 +124,5 @@ app.get("*", function (req, res) {
  * 服务器开启
  */
 app.listen(3001, function () {
-    console.log("服务端已启动！访问地址：http://localhost:3000");
+    console.log("服务端已启动！访问地址：http://localhost:3001");
 });
