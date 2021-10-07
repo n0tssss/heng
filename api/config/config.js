@@ -1,9 +1,9 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-19 02:08:33
- * @LastEditTime: 2021-10-07 16:18:52
+ * @LastEditTime: 2021-10-07 16:43:54
  * @Description: 后端配置
- * @FilePath: \heng\api\config\lovexhj.js
+ * @FilePath: \heng\api\config\config.js
  * @Mail：mail@n0ts.cn
  */
 

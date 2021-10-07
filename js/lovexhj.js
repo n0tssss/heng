@@ -68,6 +68,8 @@ new Vue({
         this.getLocalConfig();
         // 记仇获取
         this.getWdnmd();
+        // 富文本编辑器创建
+        this.createEditor();
     },
 
     /**
