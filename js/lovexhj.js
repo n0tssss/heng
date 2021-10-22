@@ -1,9 +1,9 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-11 19:32:54
- * @LastEditTime: 2021-10-07 17:32:14
+ * @LastEditTime: 2021-10-22 17:29:34
  * @Description: 小本本 js
- * @FilePath: \heng\js\lovexhj.js
+ * @FilePath: /heng/js/lovexhj.js
  * @Mail：mail@n0ts.cn
  */
 
@@ -21,7 +21,7 @@ import jsonConfig from "../config/config.js";
 window.onload = function () {
     lock1 = true;
     unlockPage();
-}
+};
 
 /**
  * 加载页面解除
@@ -66,8 +66,8 @@ new Vue({
             pswForm: false, // 密码框
             password: "", // 密码
             loadMore: false, // 加载更多锁
-            sexSelect: "", // 选择的身份
-        }
+            sexSelect: "" // 选择的身份
+        };
     },
 
     /**
@@ -93,9 +93,12 @@ new Vue({
             // 获取配置，没有则初始化
             this.localConfig = JSON.parse(window.localStorage.getItem("lovexhj"));
             if (!this.localConfig) {
-                window.localStorage.setItem("lovexhj", JSON.stringify({
-                    "theme": "light"
-                }));
+                window.localStorage.setItem(
+                    "lovexhj",
+                    JSON.stringify({
+                        theme: "light"
+                    })
+                );
                 this.localConfig = JSON.parse(window.localStorage.getItem("lovexhj"));
             }
             lock2 = true;
@@ -112,7 +115,7 @@ new Vue({
         loadTheme() {
             // 颜色配置
             let themeConfig = {
-                "white": [
+                white: [
                     // 背景颜色
                     ["--bg-color", "rgb(241, 242, 246)"],
                     // 框架颜色
@@ -120,9 +123,9 @@ new Vue({
                     // 字体颜色
                     ["--font-color", "black"],
                     // 加载转圈圈
-                    ["--load", "rgba(211, 211, 211, 0.6)"],
+                    ["--load", "rgba(211, 211, 211, 0.6)"]
                 ],
-                "dark": [
+                dark: [
                     // 背景颜色
                     ["--bg-color", "rgb(33, 37, 43)"],
                     // 框架颜色
@@ -130,7 +133,7 @@ new Vue({
                     // 字体颜色
                     ["--font-color", "white"],
                     // 加载转圈圈
-                    ["--load", "rgba(0, 0, 0, 0.6)"],
+                    ["--load", "rgba(0, 0, 0, 0.6)"]
                 ]
             };
 
@@ -142,7 +145,7 @@ new Vue({
                 result = themeConfig.dark;
             }
 
-            result.forEach(item => {
+            result.forEach((item) => {
                 document.documentElement.style.setProperty(item[0], item[1]);
             });
         },
@@ -194,50 +197,61 @@ new Vue({
          * @param {*} add 是否继续加载
          */
         getWdnmd(add) {
-            axios.get(`${this.jsonConfig.lovexhj.ServerBase}/get?page=${this.jsonConfig.lovexhj.pageloadNum[0]}&per_page=${this.jsonConfig.lovexhj.pageloadNum[1]}`).then(res => {
-                // 错误检测
-                if (res.data.error) {
-                    return console.log(res.data.error);
-                }
-                // 数据是否存在
-                if (res.data.data.length == 0) {
-                    return;
-                }
-                let resData = res.data.data;
+            axios
+                .get(jsonConfig.lovexhj.ServerBase, {
+                    params: {
+                        path: `api/v5/repos/${jsonConfig.lovexhj.owner}/${jsonConfig.lovexhj.repo}/issues?access_token={0}&sort=created&direction=desc&page=${jsonConfig.lovexhj.pageloadNum[0]}&per_page=${jsonConfig.lovexhj.pageloadNum[1]}`
+                    }
+                })
+                .then(
+                    (res) => {
+                        // 错误检测
+                        if (res.data.error) {
+                            return console.log(res.data.error);
+                        }
+                        // 数据是否存在
+                        if (res.data.length == 0) {
+                            return;
+                        }
+                        let resData = res.data;
 
-                // 调试
-                // console.log(res.data.data);
-                // console.log(this.wdnmdData);
+                        // 调试
+                        // console.log(res.data.data);
+                        // console.log(this.wdnmdData);
 
-                // 日期处理，标题与作者分割处理
-                for (let i = 0; i < resData.length; i++) {
-                    resData[i].created_at = new Date(resData[i].created_at).toLocaleDateString();
-                    let title = [];
-                    title.push(resData[i].title.substring(1, resData[i].title.indexOf("]")));
-                    title.push(resData[i].title.substring(resData[i].title.indexOf("]") + 1, resData[i].title.length));
-                    resData[i].title = title;
-                }
+                        // 日期处理，标题与作者分割处理
+                        for (let i = 0; i < resData.length; i++) {
+                            resData[i].created_at = new Date(resData[i].created_at).toLocaleDateString();
+                            let title = [];
+                            title.push(resData[i].title.substring(1, resData[i].title.indexOf("]")));
+                            title.push(
+                                resData[i].title.substring(resData[i].title.indexOf("]") + 1, resData[i].title.length)
+                            );
+                            resData[i].title = title;
+                        }
 
-                // 如果是继续加载则合并原来数据
-                if (add) {
-                    this.wdnmdData = this.wdnmdData.concat(resData);
-                } else {
-                    this.wdnmdData = resData;
-                }
+                        // 如果是继续加载则合并原来数据
+                        if (add) {
+                            this.wdnmdData = this.wdnmdData.concat(resData);
+                        } else {
+                            this.wdnmdData = resData;
+                        }
 
-                // 是否为最后的数据
-                if (resData.length < this.jsonConfig.lovexhj.pageloadNum[1]) {
-                    this.loadMore = true;
-                }
-            }, err => {
-                this.loadMore = true;
-                console.log("报错啦！", err);
-                this.$message({
-                    message: "获取记仇失败！请查看开发者工具报错！",
-                    showClose: true,
-                    type: "error"
-                });
-            });
+                        // 是否为最后的数据
+                        if (resData.length < jsonConfig.lovexhj.pageloadNum[1]) {
+                            this.loadMore = true;
+                        }
+                    },
+                    (err) => {
+                        this.loadMore = true;
+                        console.log("报错啦！", err);
+                        this.$message({
+                            message: "获取记仇失败！请查看开发者工具报错！",
+                            showClose: true,
+                            type: "error"
+                        });
+                    }
+                );
         },
 
         /**
@@ -249,7 +263,7 @@ new Vue({
                 // 图片查看
                 let Viewer = window.Viewer;
                 let img = document.querySelectorAll(".lovexhjBookListContext img");
-                img.forEach(item => {
+                img.forEach((item) => {
                     new Viewer(item);
                 });
             }, 0);
@@ -315,18 +329,18 @@ new Vue({
                 // "code",
                 "splitLine",
                 "undo",
-                "redo",
+                "redo"
             ];
             // 关闭粘贴样式
             ed.config.pasteFilterStyle = false;
             // 代码高亮
             ed.highlight = this.hljs;
             // 提示文本
-            ed.config.placeholder = this.jsonConfig.lovexhj.editText;
+            ed.config.placeholder = jsonConfig.lovexhj.editText;
             // 配置 onchange 回调函数
             ed.config.onchange = (content) => {
                 this.body = content;
-            }
+            };
             // 高度设置
             ed.config.height = 150;
 
@@ -350,7 +364,7 @@ new Vue({
         wdnmdSubmit() {
             // 密码认证
             if (!this.password) {
-                return this.pswForm = true;
+                return (this.pswForm = true);
             }
             this.wdnmdLoading = true;
             // 数据验证
@@ -362,32 +376,41 @@ new Vue({
                     type: "warning"
                 });
             }
-            axios.post(this.jsonConfig.lovexhj.ServerBase + "/add", {
-                title: `[${this.sexSelect}]${this.title}`,
-                body: this.body,
-                password: this.password
-            }).then(res => {
-                this.wdnmdLoading = false;
-                if (res.data.error) {
-                    this.password = "";
-                    return this.$message({
-                        message: res.data.error,
-                        showClose: true,
-                        type: "warning"
-                    });
-                }
-                if (res.data.data == "ok") {
-                    this.$message({
-                        message: this.jsonConfig.lovexhj.wdnmdOk,
-                        showClose: true,
-                        type: "success"
-                    });
-                    // 刷新
-                    this.getWdnmd();
-                }
-            }, err => {
-                console.log(err);
-            });
+            axios
+                .post(jsonConfig.lovexhj.ServerBase, {
+                    path: `api/v5/repos/${jsonConfig.lovexhj.owner}/issues`,
+                    password: this.password,
+                    data: {
+                        repo: "jichou",
+                        title: `[${this.sexSelect}]${this.title}`,
+                        body: this.body
+                    }
+                })
+                .then(
+                    (res) => {
+                        this.wdnmdLoading = false;
+                        if (!res.data) {
+                            this.password = "";
+                            return this.$message({
+                                message: res.data.error,
+                                showClose: true,
+                                type: "warning"
+                            });
+                        }
+                        if (res.status == 200) {
+                            this.$message({
+                                message: jsonConfig.lovexhj.wdnmdOk,
+                                showClose: true,
+                                type: "success"
+                            });
+                            // 刷新
+                            this.getWdnmd();
+                        }
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
         },
 
         /**
@@ -406,11 +429,11 @@ new Vue({
          */
         lazyLoadList() {
             // 当有数据时才会开启翻页加载
-            if(!this.wdnmdData) {
+            if (!this.wdnmdData) {
                 return;
             }
-            this.jsonConfig.lovexhj.pageloadNum[0]++;
+            jsonConfig.lovexhj.pageloadNum[0]++;
             this.getWdnmd(true);
         }
-    },
-})
+    }
+});
