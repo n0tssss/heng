@@ -1,9 +1,9 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-11 19:32:54
- * @LastEditTime: 2021-10-24 16:09:05
+ * @LastEditTime: 2021-11-03 15:19:43
  * @Description: 小本本 js
- * @FilePath: \heng\js\lovexhj.js
+ * @FilePath: /heng/js/lovexhj.js
  * @Mail：mail@n0ts.cn
  */
 
@@ -381,7 +381,7 @@ new Vue({
                     path: `api/v5/repos/${jsonConfig.lovexhj.owner}/issues`,
                     password: this.password,
                     data: {
-                        repo: "jichou",
+                        repo: jsonConfig.lovexhj.repo,
                         title: `[${this.sexSelect}]${this.title}`,
                         body: this.body
                     }
