@@ -1,9 +1,9 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-11 19:32:54
- * @LastEditTime: 2021-10-22 17:29:34
+ * @LastEditTime: 2021-10-24 16:09:05
  * @Description: 小本本 js
- * @FilePath: /heng/js/lovexhj.js
+ * @FilePath: \heng\js\lovexhj.js
  * @Mail：mail@n0ts.cn
  */
 
@@ -389,12 +389,12 @@ new Vue({
                 .then(
                     (res) => {
                         this.wdnmdLoading = false;
-                        if (!res.data) {
+                        if (res.data.code == 0) {
                             this.password = "";
                             return this.$message({
-                                message: res.data.error,
+                                message: res.data.message,
                                 showClose: true,
-                                type: "warning"
+                                type: "error"
                             });
                         }
                         if (res.status == 200) {
