@@ -1,9 +1,9 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-18 22:53:40
- * @LastEditTime: 2021-10-23 16:14:19
+ * @LastEditTime: 2022-05-14 18:37:06
  * @Description: 前端配置
- * @FilePath: \heng\config\config.js
+ * @FilePath: /heng/config/config.js
  * @Mail：mail@n0ts.cn
  */
 
