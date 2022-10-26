@@ -505,15 +505,15 @@ body {
 }
 
 .lovexhjBookContent h1 {
-    font-size: 1.5rem;
-}
-
-.lovexhjBookContent h2 {
     font-size: 1.3rem;
 }
 
-.lovexhjBookContent h3 {
+.lovexhjBookContent h2 {
     font-size: 1.2rem;
+}
+
+.lovexhjBookContent h3 {
+    font-size: 1.1rem;
 }
 
 .lovexhjBookContent ul,

@@ -1,7 +1,7 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-18 22:53:40
- * @LastEditTime: 2022-05-14 18:37:06
+ * @LastEditTime: 2022-10-26 16:23:40
  * @Description: 前端配置
  * @FilePath: /heng/config/config.js
  * @Mail：mail@n0ts.cn
@@ -10,7 +10,7 @@
 export default {
     lovexhj: {
         // 后端地址
-        ServerBase: "https://giteeapi.n0ts.cn/10015",
+        ServerBase: "https://api.n0ts.cn/api/gitee",
         // 码云账号
         owner: "n0ts",
         // 仓库名称

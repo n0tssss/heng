@@ -1,7 +1,7 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-11 19:32:54
- * @LastEditTime: 2021-11-03 15:19:43
+ * @LastEditTime: 2022-10-26 16:50:50
  * @Description: 小本本 js
  * @FilePath: /heng/js/lovexhj.js
  * @Mail：mail@n0ts.cn
@@ -14,6 +14,18 @@ let lock1 = false;
 let lock2 = false;
 // 配置文件地址
 import jsonConfig from "../config/config.js";
+
+// 添加响应拦截器
+axios.interceptors.response.use(
+    function (response) {
+        // 对响应数据做点什么
+        return response.data;
+    },
+    function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    }
+);
 
 /**
  * 网页加载
@@ -198,9 +210,14 @@ new Vue({
          */
         getWdnmd(add) {
             axios
-                .get(jsonConfig.lovexhj.ServerBase, {
+                .post(jsonConfig.lovexhj.ServerBase, {
+                    method: "GET",
+                    url: `/repos/${jsonConfig.lovexhj.owner}/${jsonConfig.lovexhj.repo}/issues`,
                     params: {
-                        path: `api/v5/repos/${jsonConfig.lovexhj.owner}/${jsonConfig.lovexhj.repo}/issues?access_token={0}&sort=created&direction=desc&page=${jsonConfig.lovexhj.pageloadNum[0]}&per_page=${jsonConfig.lovexhj.pageloadNum[1]}`
+                        sort: "created",
+                        direction: "desc",
+                        page: jsonConfig.lovexhj.pageloadNum[0],
+                        per_page: jsonConfig.lovexhj.pageloadNum[1]
                     }
                 })
                 .then(
@@ -214,10 +231,6 @@ new Vue({
                             return;
                         }
                         let resData = res.data;
-
-                        // 调试
-                        // console.log(res.data.data);
-                        // console.log(this.wdnmdData);
 
                         // 日期处理，标题与作者分割处理
                         for (let i = 0; i < resData.length; i++) {
@@ -236,6 +249,28 @@ new Vue({
                         } else {
                             this.wdnmdData = resData;
                         }
+
+                        // 码云图片处理
+                        this.wdnmdData.forEach((item) => {
+                            item.body.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+                                // 是否为 url
+                                let testVol = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/.test(capture);
+                                // 是否为码云图片
+                                let testGitee = capture.includes("gitee.com");
+                                // 为 url + 码云图片则处理
+                                if (testVol && testGitee) {
+                                    item.body = item.body.replace(
+                                        capture,
+                                        decodeURIComponent(`https://api.n0ts.cn/gitee/image?url=${capture}`)
+                                    );
+                                }
+                            });
+                        });
+
+                        console.log(
+                            "🚀 记仇数据 | file: lovexhj.js | line 251 | getWdnmd | this.wdnmdData",
+                            this.wdnmdData
+                        );
 
                         // 是否为最后的数据
                         if (resData.length < jsonConfig.lovexhj.pageloadNum[1]) {
@@ -378,7 +413,8 @@ new Vue({
             }
             axios
                 .post(jsonConfig.lovexhj.ServerBase, {
-                    path: `api/v5/repos/${jsonConfig.lovexhj.owner}/issues`,
+                    method: "POST",
+                    url: `/repos/${jsonConfig.lovexhj.owner}/issues`,
                     password: this.password,
                     data: {
                         repo: jsonConfig.lovexhj.repo,

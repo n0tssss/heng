@@ -15,30 +15,11 @@
 
 # 使用教程
 
-前往 [Gitee AccessToken 管理平台 (n0ts.cn)](https://gitee.n0ts.cn/) 注册一个账号，并录入自己码云的 Access Token，权限最少需要给与 Issues 操作权限
-
-然后在 `config/config.js` 中修改如下选项
-
-后端地址为：https://giteeapi.n0ts.cn/ 编号，编号来源于刚刚设置 Access Token 主面板会显示；
-
-码云账号与仓库名称填上，就可以使用了！
-
-```json
-// 后端地址
-ServerBase: "https://giteeapi.n0ts.cn/编号",
-// 码云账号
-owner: "n0ts",
-// 仓库名称
-repo: "jichou",
-```
-
-
+配置 /js/config.js 即可
 
 # 后端开源
 
-[GiteeApi: 存储码云私钥，代理请求码云 API](https://gitee.com/n0ts/gitee-api)
-
-
+[GiteeApi: 自己项目用于请求 Gitee API](https://gitee.com/n0ts/gitee-api)
 
 # QQ 群讨论
 
