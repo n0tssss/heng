@@ -692,6 +692,7 @@ body {
 /* 密码弹框 */
 .el-dialog {
     width: 80%;
+    max-width: 500px;
 }
 
 /* 自适应 */

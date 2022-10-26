@@ -1,7 +1,7 @@
 /*
  * @Author: N0ts
  * @Date: 2021-05-11 19:32:54
- * @LastEditTime: 2022-10-26 16:50:50
+ * @LastEditTime: 2022-10-26 17:07:29
  * @Description: 小本本 js
  * @FilePath: /heng/js/lovexhj.js
  * @Mail：mail@n0ts.cn
@@ -12,8 +12,12 @@
  */
 let lock1 = false;
 let lock2 = false;
+
 // 配置文件地址
 import jsonConfig from "../config/config.js";
+
+// 富文本
+let ed = null;
 
 // 添加响应拦截器
 axios.interceptors.response.use(
@@ -267,11 +271,6 @@ new Vue({
                             });
                         });
 
-                        console.log(
-                            "🚀 记仇数据 | file: lovexhj.js | line 251 | getWdnmd | this.wdnmdData",
-                            this.wdnmdData
-                        );
-
                         // 是否为最后的数据
                         if (resData.length < jsonConfig.lovexhj.pageloadNum[1]) {
                             this.loadMore = true;
@@ -338,7 +337,7 @@ new Vue({
          */
         createEditor() {
             let E = window.wangEditor;
-            let ed = new E("#ed");
+            ed = new E("#ed");
             //  菜单配置
             ed.config.menus = [
                 "head",
@@ -439,6 +438,13 @@ new Vue({
                                 showClose: true,
                                 type: "success"
                             });
+
+                            // 清空数据
+                            this.title = "";
+                            this.body = "";
+                            this.sexSelect = "";
+                            ed.txt.clear();
+
                             // 刷新
                             this.getWdnmd();
                         }
